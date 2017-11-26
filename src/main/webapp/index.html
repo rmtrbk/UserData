@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="resources/css/digitary.css" />
+
+        <title>Digitary</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <script src="resources/js/react.js"></script>
+        <script src="resources/js/react-dom.js"></script>
+        <script src="resources/js/browser.min.js"></script>
+        <script src="resources/js/jquery-3.2.1.min.js"></script>
+    </head>
+
+    <body>
+        <div class="banner" ><span class="heading">Digitary User Data</span></div>
+
+        <div id="container" class="content"> </div>
+
+        <script type="text/babel">        
+            var Panel = React.createClass({
+                getInitialState: function() {
+                    return {
+                        searchedName: '',
+                        id: '',
+                        firstName: '',
+                        lastName: '',
+                        email: '',
+                        addressLine1: '',
+                        addressLine2: '',
+                        town: '',
+                        postalCode: '',
+                        country: '',
+                        phoneNumber1: '',
+                        phoneNumber2: '',
+                        phoneNumber3: '',                        
+                        actionSuccessful: false,
+                        actionMessage: '',
+                        receivedDate: ''
+                        
+                    };
+                },
+
+                setSearchedName: function(evt) {
+                    this.setState({searchedName: evt.target.value});
+                },
+                
+                setId: function(evt) {
+                    this.setState({id: evt.target.value});
+                },
+                
+                setFirstName: function(evt) {
+                    this.setState({firstName: evt.target.value});
+                },
+                
+                setLastName: function(evt) {
+                    this.setState({lastName: evt.target.value});
+                },
+                
+                setEmail: function(evt) {
+                    this.setState({email: evt.target.value});
+                },
+                
+                setAddressLine1: function(evt) {
+                    this.setState({addressLine1: evt.target.value});
+                },
+                
+                setAddressLine2: function(evt) {
+                    this.setState({addressLine2: evt.target.value});
+                },
+                
+                setTown: function(evt) {
+                    this.setState({town: evt.target.value});
+                },
+                
+                setPostalCode: function(evt) {
+                    this.setState({postalCode: evt.target.value});
+                },
+                
+                setCountry: function(evt) {
+                    this.setState({country: evt.target.value});
+                },
+                
+                setPhoneNumber1: function(evt) {
+                    this.setState({phoneNumber1: evt.target.value});
+                },
+                
+               setPhoneNumber2: function(evt) {
+                    this.setState({phoneNumber2: evt.target.value});
+                },
+                
+                setPhoneNumber3: function(evt) {
+                    this.setState({phoneNumber3: evt.target.value});
+                },
+                
+                resetAll: function() {
+                    this.setState({
+                        searchedName: '',
+                        id: '',
+                        firstName: '',
+                        lastName: '',
+                        email: '',
+                        addressLine1: '',
+                        addressLine2: '',
+                        town: '',
+                        postalCode: '',
+                        country: '',
+                        phoneNumber1: '',
+                        phoneNumber2: '',
+                        phoneNumber3: '',
+                        actionSuccessful: false,
+                        actionMessage: '',
+                        receivedDate: ''
+                    });
+                },
+                
+                validateInputs: function() {
+                    var id = this.state.id > 0;
+                    var firstName = this.state.firstName.length > 0;
+                    var lastName = this.state.lastName.length > 0;
+                    var email = this.state.email.length > 0;
+                    var addressLine1 = this.state.addressLine1.length > 0;
+                    var town = this.state.town.length > 0;
+                    var country = this.state.country.length > 0;
+                    
+                    return id && firstName && lastName && email && addressLine1 && town && country;
+                },
+                
+                findRecord: function() {
+                    $.ajax({
+                        url: "http://localhost:8080/DigitaryUserData/Find?name="
+                            + this.state.searchedName,
+                        dataType: 'json',
+                        cache: false,
+                        success: function(data) {
+                            var array = [];
+                            for (let prop in data) {
+                                array.push(data[prop]);
+                            }
+                            
+                            if(array.length > 0){
+                                this.setState({actionSucessful: true, actionMessage: 'Record was received from the server'});
+                                
+                                this.setState({id: array[0]});  
+                                this.setState({firstName: array[1]});  
+                                this.setState({lastName: array[2]});  
+                                this.setState({email: array[3]});  
+                                this.setState({addressLine1: array[4]});  
+                                this.setState({addressLine2: array[5]});  
+                                this.setState({town: array[6]});  
+                                this.setState({postalCode: array[7]});  
+                                this.setState({country: array[8]});  
+                                this.setState({phoneNumber1: array[9]});  
+                                this.setState({phoneNumber2: array[10]});  
+                                this.setState({phoneNumber3: array[11]});  
+                                this.setState({receivedDate: array[12]}); 
+                            } else {
+                                this.setState({actionSucessful: false, actionMessage: 'Record was not received from the server'});
+                            }
+                        }.bind(this),
+                        error: function(xhr, status, err) {
+                            console.error(this.props.url, status, err.toString());
+                        }.bind(this)
+                    });
+                },
+                
+                saveLocally: function() {
+                    this.createRecord();
+                },
+               
+                createRecord: function() {
+                    if(this.validateInputs()){    
+                        $.ajax({
+                            url: "http://localhost:8080/DigitaryUserData/Create?id="
+                            + this.state.id
+                            + "&firstName="
+                            + this.state.firstName
+                            + "&lastName="
+                            + this.state.lastName
+                            + "&email="
+                            + this.state.email
+                            + "&addressLine1="
+                            + this.state.addressLine1
+                            + "&addressLine2="
+                            + this.state.addressLine2
+                            + "&town="
+                            + this.state.town
+                            + "&postalCode="
+                            + this.state.postalCode
+                            + "&country="
+                            + this.state.country
+                            + "&phoneNumber1="
+                            + this.state.phoneNumber1
+                            + "&phoneNumber2="
+                            + this.state.phoneNumber2
+                            + "&phoneNumber3="
+                            + this.state.phoneNumber3
+                            + "&receivedDate="
+                            + this.state.receivedDate,
+                            dataType: 'json',
+                            cache: false,
+                            success: function(data) {
+                                var array = [];
+                                for (let prop in data) {
+                                    array.push(data[prop]);
+                                }
+                            
+                                if(data){
+                                    this.setState({actionSucessful: true, actionMessage: 'Record created successfully'});
+                                }else {
+                                    this.setState({actionSucessful: false, actionMessage: 'Record creation failed'});
+                                }
+                                                        
+                            }.bind(this),
+                            error: function(xhr, status, err) {
+                                console.error(this.props.url, status, err.toString());
+                            }.bind(this)
+                        });
+                    } else {
+                        this.setState({actionSucessful: false, actionMessage: 'Please enter mandatory'});
+                    }
+                },
+                
+                retrieveRecord: function() {
+                    $.ajax({
+                        url: "http://localhost:8080/DigitaryUserData/Retrieve?firstName="
+                            + this.state.firstName
+                            + "&lastName="
+                            + this.state.lastName,
+                        dataType: 'json',
+                        cache: false,
+                        success: function(data) {
+                            var array = [];
+                            for (let prop in data) {
+                                array.push(data[prop]);
+                            }
+                            
+                            if(array.length > 0) {
+                                this.setState({actionSucessful: true, actionMessage: 'Record was found'});
+                                
+                                this.setState({id: array[0]});  
+                                this.setState({firstName: array[1]});  
+                                this.setState({lastName: array[2]});  
+                                this.setState({email: array[3]});  
+                                this.setState({addressLine1: array[4]});  
+                                this.setState({addressLine2: array[5]});  
+                                this.setState({town: array[6]});  
+                                this.setState({postalCode: array[7]});  
+                                this.setState({country: array[8]});  
+                                this.setState({phoneNumber1: array[9]});  
+                                this.setState({phoneNumber2: array[10]});  
+                                this.setState({phoneNumber3: array[11]}); 
+                            } else {
+                                this.setState({actionSucessful: false, actionMessage: 'Record was not found'});
+                            }
+                        }.bind(this),
+                        error: function(xhr, status, err) {
+                            console.error(this.props.url, status, err.toString());
+                        }.bind(this)
+                    });
+                },
+                
+                updateRecord: function() {
+                    if(this.validateInputs()){ 
+                        $.ajax({
+                            url: "http://localhost:8080/DigitaryUserData/Update?id="
+                            + this.state.id
+                            + "&firstName="
+                            + this.state.firstName
+                            + "&lastName="
+                            + this.state.lastName
+                            + "&email="
+                            + this.state.email
+                            + "&addressLine1="
+                            + this.state.addressLine1
+                            + "&addressLine2="
+                            + this.state.addressLine2
+                            + "&town="
+                            + this.state.town
+                            + "&postalCode="
+                            + this.state.postalCode
+                            + "&country="
+                            + this.state.country
+                            + "&phoneNumber1="
+                            + this.state.phoneNumber1
+                            + "&phoneNumber2="
+                            + this.state.phoneNumber2
+                            + "&phoneNumber3="
+                            + this.state.phoneNumber3,
+                            dataType: 'json',
+                            cache: false,
+                            success: function(data) {
+                                if(data){
+                                    this.setState({actionSucessful: true, actionMessage: 'Record updated successfully'});
+                                }else {
+                                    this.setState({actionSucessful: false, actionMessage: 'Record updating failed'});
+                                }
+        
+                            }.bind(this),
+                            error: function(xhr, status, err) {
+                                console.error(this.props.url, status, err.toString());
+                            }.bind(this)
+                        });
+                    } else {
+                        this.setState({actionSucessful: false, actionMessage: 'Please enter mandatory'});
+                    }
+                },
+                
+                deleteRecord: function() {
+                    $.ajax({
+                        url: "http://localhost:8080/DigitaryUserData/Delete?id="
+                            + this.state.id,
+                        dataType: 'json',
+                        cache: false,
+                        success: function(data) {
+                            if(data){
+                                this.resetAll();
+                                this.setState({actionSucessful: true, actionMessage: 'Record deleted successfully'});                                
+                            }else {
+                                this.setState({actionSucessful: false, actionMessage: 'Record deletion failed'});
+                            }
+        
+                        }.bind(this),
+                        error: function(xhr, status, err) {
+                            console.error(this.props.url, status, err.toString());
+                        }.bind(this)
+                    });
+                },
+
+                render: function() {
+                    return(
+                        <div className="userControls">
+                            <div>
+                                Find in server  <input type="text" value={this.state.searchedName} onChange={this.setSearchedName}/><br/><br/>
+                                <button className="findButton" onClick={this.findRecord}> Find </button>
+                                <button className="saveButton" onClick={this.saveLocally}> Save Locally </button>
+                            </div>
+                            <br/><br/><br/><br/>
+                            
+                            <div>
+                                ID*  <input type="text" value={this.state.id} onChange={this.setId}/><br/><br/>
+                                First Name*  <input type="text" value={this.state.firstName} onChange={this.setFirstName}/><br/><br/>
+                                Last Name*  <input type="text" value={this.state.lastName} onChange={this.setLastName}/><br/><br/>
+                                Email*  <input type="text" value={this.state.email} onChange={this.setEmail}/><br/><br/>
+                                Address Line 1*  <input type="text" value={this.state.addressLine1} onChange={this.setAddressLine1}/><br/><br/>
+                                Address Line 2  <input type="text" value={this.state.addressLine2} onChange={this.setAddressLine2}/><br/><br/>
+                                Town*  <input type="text" value={this.state.town} onChange={this.setTown}/><br/><br/>
+                                Postal Code  <input type="text" value={this.state.postalCode} onChange={this.setPostalCode}/><br/><br/>
+                                Country*  <input type="text" value={this.state.country} onChange={this.setCountry}/><br/><br/>
+                                Phone Number 1  <input type="text" value={this.state.phoneNumber1} onChange={this.setPhoneNumber1}/><br/><br/>
+                                Phone Number 2  <input type="text" value={this.state.phoneNumber2} onChange={this.setPhoneNumber2}/><br/><br/>
+                                Phone Number 3  <input type="text" value={this.state.phoneNumber3} onChange={this.setPhoneNumber3}/><br/><br/>
+                            </div>
+                            
+                            <div>
+                                <button className="actionButton" onClick={this.createRecord}> Create </button>    
+                                <button className="actionButton" onClick={this.retrieveRecord}> Retrieve </button> 
+                                <button className="actionButton" onClick={this.updateRecord}> Update </button> 
+                                <button className="actionButton" onClick={this.deleteRecord}> Delete </button><br/>
+                                <button className="actionButton" onClick={this.resetAll}> Clear </button>  
+                            </div>
+                            
+                            <div className={this.state.actionSucessful ? "actionSuccessful" : "actionFailed"}>
+                                <br/><span>{this.state.actionMessage}</span>
+                            </div>
+                        </div>
+                    );
+                }
+            });
+
+            ReactDOM.render(<Panel/>, document.getElementById('container'));
+
+        </script>
+    </body>
+</html>

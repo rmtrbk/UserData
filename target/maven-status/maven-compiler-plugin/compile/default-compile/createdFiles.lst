@@ -1,0 +1,13 @@
+au\com\digitary\userdata\service\RequestUserDataFromSereverService.class
+au\com\digitary\userdata\controller\DigitaryController.class
+au\com\digitary\userdata\dao\UserDataDAO.class
+au\com\digitary\userdata\databasetransactions\DatabaseTransactions.class
+au\com\digitary\userdata\service\RequestUserDataFromServerServiceImpl.class
+au\com\digitary\userdata\service\UserDataServiceImpl.class
+au\com\digitary\userdata\dto\UserDataDTO.class
+au\com\digitary\userdata\model\UserData_.class
+au\com\digitary\userdata\model\UserData.class
+au\com\digitary\userdata\service\RequestProcessorService.class
+au\com\digitary\userdata\service\RequestProcessorServiceImpl.class
+au\com\digitary\userdata\service\UserDataService.class
+au\com\digitary\userdata\dao\UserDataDAOImpl.class
