@@ -14,37 +14,7 @@
 
 
 
-Table of Contents
 
-Used Tools and Technologies        3
-
-Design Decisions and Assumptions        3
-
-Database        5
-
-How it is organised in the Database and in the IDE        6
-
-GlassFish Configurations        9
-
-Global Properties File        9
-
-Database Connection Pool        9
-
-Running the Application        11
-
-Starting up the Dummy Third Party Back-End Server        11
-
-Starting the Application from the IDE        12
-
-Deploying the Application in GlassFish        13
-
-Testing the Application        14
-
-Third Party Server Back-End HTTP Communication        14
-
-CRUD Operations in Client Back-End        15
-
-Future Improvements        15
 
 
 
