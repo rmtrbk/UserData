@@ -88,7 +88,7 @@ Design Decisions and Assumptions
 
 A very basic architectural diagram is elaborated below.
 
-<img src="media/image1.png" width="355" height="759" />
+<img src="media/image1.png" width="745" height="578" />
 
 ***Figure 1:*** Architectural overview of the application design
 
