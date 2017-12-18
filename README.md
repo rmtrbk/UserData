@@ -88,6 +88,8 @@ Design Decisions and Assumptions
 
 A very basic architectural diagram is elaborated below.
 
+<img src="media/image1.png" width="355" height="759" />
+
 ***Figure 1:*** Architectural overview of the application design
 
 Database
