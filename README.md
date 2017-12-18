@@ -243,7 +243,7 @@ data source in persistence.xml file***.
 
 A screen capture is found below for a quick reference.
 
-<img src="media/image6.png" width="745" height="578" />
+<img src="media/image5.png" width="745" height="578" />
 
 ***Figure 5:*** GlassFish connection settings
 
@@ -272,7 +272,7 @@ Install **Postman** plug-in for Google Chrome. Run it. This server can
 be tested independently with Postman.How it can be used is elaborated in
 the below screenshot.
 
-<img src="media/image8.png" width="601" height="451" />
+<img src="media/image6.png" width="601" height="451" />
 
 ***Figure 6:*** Postman POST request with JSON
 
@@ -284,7 +284,7 @@ Starting the Application from the IDE
 As usual, just right click on the project and click run. Below page will
 appear in the browser.
 
-<img src="media/image9.png" width="601" height="616" />
+<img src="media/image7.png" width="601" height="616" />
 
 ***Figure 7:*** Application front-end
 
@@ -300,7 +300,7 @@ Once the war file is uploded, click on it and change the context root to
 
 Refer the below screenshot for the setting.
 
-<img src="media/image10.png" width="601" height="490" />
+<img src="media/image8.png" width="601" height="490" />
 
 ***Figure 8:*** Context root setting in GlassFish
 
@@ -321,7 +321,7 @@ dummy server that was made up and running earlier (if there is no real
 server for testing, that is.). If the name is found and the server
 responds, the received values will be displayed in the section below.
 
-<img src="media/image11.png" width="601" height="679" />
+<img src="media/image9.png" width="601" height="679" />
 
 ***Figure 9:*** Data received from back-end server
 
